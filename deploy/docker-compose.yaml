@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  server:
+    container_name: server
+    build:
+      context: ../.
+      dockerfile: ./deploy/server/Dockerfile
+    ports:
+      - 9095:9095
+    networks:
+      - backend
+
+  client:
+    container_name: client
+    build:
+      context: ../.
+      dockerfile: ./deploy/client/Dockerfile
+    depends_on: 
+      - server
+    environment:
+      BIND_ADDR: server:9095
+    networks:
+      - backend
+
+networks:
+  backend:
