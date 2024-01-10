@@ -37,7 +37,7 @@ func (h *quotesHandler) checkPOW(ctx *fiber.Ctx) (err error) {
 		if err != nil {
 			return
 		}
-		ctx.JSON(map[string]string{"challenge": challenge})
+		ctx.JSON(model.Response{Challenge: challenge})
 		return
 	}
 	ok, err := h.pows.Check(challenge, pow)
